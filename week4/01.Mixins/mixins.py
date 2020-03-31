@@ -1,6 +1,5 @@
 import json
 from dicttoxml import dicttoxml
-import xmltodict
 import jxmlease
 
 
