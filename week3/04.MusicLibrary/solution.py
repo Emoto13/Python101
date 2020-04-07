@@ -174,22 +174,18 @@ class PlayList:
         with open(f'playlist-data/{file_name}.json', 'w+') as file:
             file.write(json_repr)
 
-
-
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__, indent=4)
 
     @classmethod
     def load(cls, path):
         with open(f'playlist-data/{path}', 'r') as file:
             data = file.read()
             json_repr = json.loads(data)
-            playlist = cls.__add_properties_to_playlist_when_load_is_called(json_repr)
-        return playlist
+            return cls.create_playlist_instance_with_correct_attributes(json_repr)
 
     @classmethod
-    def __add_properties_to_playlist_when_load_is_called(cls, json_repr):
+    def create_playlist_instance_with_correct_attributes(cls, json_repr):
         playlist = PlayList(name=json_repr["name"], repeat=json_repr["repeat"], shuffle=json_repr["shuffle"])
         for song in json_repr["songs"]:
             s = Song(title=song['title'], artist=song['artist'], album=song['album'], length=song['length'])
@@ -198,4 +194,3 @@ class PlayList:
             playlist.add_song(s)
         playlist.dict_of_artists = json_repr["dict_of_artists"]
         return playlist
-
