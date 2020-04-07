@@ -1,4 +1,3 @@
-execute was called and took 2.002289 seconds
-execute was called and took 2.00206 seconds
-execute was called and took 2.002215 seconds
-execute was called and took 2.001486 seconds
+something_heavy was called and took  2.001055 seconds
+something_heavy was called and took  2.002298 seconds
+something_heavy was called and took  2.00022 seconds
