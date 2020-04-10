@@ -39,7 +39,7 @@ def concatenate_pages():
     while check_if_path_exists(f'book/{page_number}.txt'):
         with open(f'book/{page_number}.txt', 'r') as f:
             book += f.read()
-            book += '\n\n'
+            book += '\n'
             current_page += 1
             page_number = get_page_number(current_page)
     return book
@@ -52,8 +52,8 @@ def create_book():
         f.write(book)
 
 
-def iterate():
-    with open('book/book.txt', 'r') as f:
+def iterate(book_path):
+    with open(f'{book_path}', 'r') as f:
         text = ""
         for line in f:
             if '# Chapter' in line:
@@ -65,9 +65,11 @@ def iterate():
         return
 
 
-def book_reader():
-    create_book()
-    gen = iterate()
+def book_reader(book_path=""):
+    if book_path == "":
+        create_book()
+        book_path = 'book/book.txt'
+    gen = iterate(book_path)
 
     for i in gen:
         key = get_key_input()
@@ -77,7 +79,7 @@ def book_reader():
 
 
 def main():
-    book_reader()
+    book_reader('book/generated_book.txt')
 
 
 if __name__ == '__main__':
