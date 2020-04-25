@@ -1,16 +1,17 @@
-# left = >
-# right = <
+import time
+
+
 def first_turn(frogs, empty_tile_index):
     left_pointer = empty_tile_index - 1
     right_pointer = empty_tile_index + 1
 
     swap(frogs, left_pointer, empty_tile_index)
-    print(frogs)
+    print("".join(frogs))
 
     empty_tile_index = left_pointer
 
     swap(frogs, right_pointer, empty_tile_index)
-    print(frogs)
+    print("".join(frogs))
 
     return setting_position(frogs)
 
@@ -24,7 +25,7 @@ def setting_position(frogs):
             swap(frogs, right_pointer, empty_tile_index)
             empty_tile_index = frogs.index('_')
             right_pointer += 1
-            print(frogs)
+            print("".join(frogs))
 
         while check_if_can_move_left_side(frogs):
             if empty_tile_index == 1 and frogs.count('>') % 2 == 0:
@@ -33,7 +34,7 @@ def setting_position(frogs):
             left_pointer = "".join(frogs[:empty_tile_index]).rindex('>')
             swap(frogs, left_pointer, empty_tile_index)
             empty_tile_index = frogs.index('_')
-            print(frogs)
+            print("".join(frogs))
 
     return resolving_position(frogs)
 
@@ -41,7 +42,6 @@ def setting_position(frogs):
 def resolving_position(frogs):
     right_pointer, left_pointer = frogs.index('<'), "".join(frogs).rindex('>')
     empty_tile_index = frogs.index('_')
-    print(frogs)
 
     while empty_tile_index != len(frogs) // 2:
         while can_resolve_moving_to_the_left(frogs):
@@ -49,14 +49,14 @@ def resolving_position(frogs):
                 right_pointer = frogs[empty_tile_index:].index('<') + empty_tile_index
             swap(frogs, right_pointer, empty_tile_index)
             empty_tile_index = frogs.index('_')
-            print(frogs)
+            print("".join(frogs))
 
         while can_resolve_moving_to_the_right(frogs):
             if '>' in frogs[:empty_tile_index]:
                 left_pointer = "".join(frogs[:empty_tile_index]).rindex('>')
             swap(frogs, left_pointer, empty_tile_index)
             empty_tile_index = frogs.index('_')
-            print(frogs)
+            print("".join(frogs))
 
 
 def can_resolve_moving_to_the_right(frogs):
@@ -94,11 +94,15 @@ def swap(lst, left, right):
 
 
 def solve(frogs):
+    if frogs.count('>') != frogs.count('<') or frogs.count('_') != 1:
+        raise ValueError('Wrong swamp')
     first_turn(list(frogs), frogs.index('_'))
 
 
 def main():
-    solve('>>>>>>>_<<<<<<<')
+    start_time = time.time()
+    solve('>>>_<<<')
+    print(time.time() - start_time)
 
 
 if __name__ == '__main__':
