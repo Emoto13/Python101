@@ -1,11 +1,10 @@
 from datetime import datetime, timedelta
-import collections
 
-#TODO:1.separate group_function to more functions?  2.check if percents are positive 3.test get_cancellation_orice
 
 def validate_dates(start, now):
     if start < now:
         raise ValueError('Start date cannot be earlier than now')
+
 
 def validate_price(price):
     if price <= 0:
@@ -32,8 +31,10 @@ def ensure_conditions(conditions):
             break
     return conditions
 
+
 def sort_conditions(conditions):
-    return list(sorted(conditions, key=lambda k: k['hours'], reverse = True))
+    return list(sorted(conditions, key=lambda k: k['hours'], reverse=True))
+
 
 def group_conditions(sorted_conditions):
     if len(sorted_conditions) == 1:
@@ -43,18 +44,18 @@ def group_conditions(sorted_conditions):
     for condition in sorted_conditions:
         lst.append(condition.get('hours'))
     list_of_intervals = []
-        
-    for i in range(1, len(lst)): 
+
+    for i in range(1, len(lst)):
         list_of_intervals.append((lst[i - 1], lst[i]))
 
-    return list_of_intervals 
+    return list_of_intervals
 
 
 def check_if_hours_left_are_bigger_than_the_intervals(hours_left, intervals):
     biggest_value_in_intervals = intervals[0][0]
     if hours_left > biggest_value_in_intervals:
         return biggest_value_in_intervals
-    return hours_left    
+    return hours_left
 
 
 def get_current_condition(conditions, start, now):
@@ -64,10 +65,12 @@ def get_current_condition(conditions, start, now):
 def get_cancellation_fee(price, percent):
     return price * (percent / 100)
 
+
 def convert_left_time_to_hours_left(left_time):
     seconds_left = left_time.total_seconds()
     hours_left = seconds_left / 3600
     return hours_left
+
 
 def find_exact_value_of_hours_left(hours_left, intervals):
     for interval in intervals:
@@ -76,19 +79,20 @@ def find_exact_value_of_hours_left(hours_left, intervals):
 
         if hours_left <= start_of_interval and hours_left > end_of_interval:
             return end_of_interval
-    return hours_left        
+    return hours_left
+
 
 def find_percent_corresponding_to_the_hours_left(hours_left, sorted_conditions):
     for condition in sorted_conditions:
         if condition.get('hours') == hours_left:
-            return condition.get('percent')     
+            return condition.get('percent')
 
 
 def get_cancellation_policy(
-    conditions,
-    price,
-    start,
-    now
+        conditions,
+        price,
+        start,
+        now
 ):
     validate_price(price)
     validate_dates(start, now)
@@ -107,8 +111,6 @@ def get_cancellation_policy(
     percent = find_percent_corresponding_to_the_hours_left(interval_hours_left, sorted_conditions)
 
     return get_cancellation_fee(price, percent)
-
-
 
 
 def main():
