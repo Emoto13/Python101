@@ -27,15 +27,15 @@ WHERE title LIKE '%Star%'
 8.SELECT m.name
 FROM MOVIESTAR as m
 INNER JOIN STARSIN as s
-WHERE m.name = s.starname
-AND m.gender = 'M'
+ON m.name = s.starname
+WHERE m.gender = 'M'
 AND s.movietitle = 'Terms of Endearment'
 
 9.SELECT s.starname
 FROM STARSIN as s
 INNER JOIN MOVIE as m
-WHERE s.movieyear = 1995
-AND m.year = 1995
+ON s.movieyear = m.year
+WHERE m.year = 1995
 AND m.studioname = 'MGM'
 
 10.ALTER TABLE STUDIO
