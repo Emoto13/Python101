@@ -16,7 +16,7 @@ def get_business_card_information():
 
 
 def add_user_to_database(values):
-    connection = sqlite3.connect('business_catalog.db')
+    connection = sqlite3.connect('/home/emoto13/Desktop/databases/business_catalog.db')
     cursor = connection.cursor()
     query = '''INSERT INTO users (full_name, email, age, phone, additional_info)
                     VALUES (?, ?, ?, ?, ?)

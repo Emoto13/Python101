@@ -7,7 +7,7 @@ def list_users():
 
 
 def get_users_from_the_data_base():
-    connection = sqlite3.connect('business_catalog.db')
+    connection = sqlite3.connect('/home/emoto13/Desktop/databases/business_catalog.db')
     cursor = connection.cursor()
     query = '''SELECT * 
                    FROM users'''
