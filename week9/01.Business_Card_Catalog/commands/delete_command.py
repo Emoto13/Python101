@@ -1,5 +1,7 @@
 import sqlite3
-from templates.templates_for_single_user import create_template_output_for_single_user, get_single_user_from_the_database, format_output
+from templates.templates_for_single_user import create_template_output_for_single_user, \
+                                                get_single_user_from_the_database,\
+                                                format_output
 
 
 def delete_user_by_id():
