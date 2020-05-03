@@ -5,6 +5,11 @@ from commands.delete_command import delete_user_by_id
 from commands.help_command import execute_help_command
 
 
+def enter_command():
+    command = input('Enter command: ')
+    return handle_command(command)
+
+
 def handle_command(command):
     commands = {'add': add_business_card,
                 'list': list_users,

@@ -1,9 +1,13 @@
-from factory import enter_command
+from event_handler import enter_command
 from create_database import create_database
+
 
 def main():
     create_database()
-    enter_command()
+    try:
+        enter_command()
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':
