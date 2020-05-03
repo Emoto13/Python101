@@ -2,7 +2,7 @@ import sqlite3
 
 
 def get_single_user_from_the_database(entered_id):
-    connection = sqlite3.connect('business_catalog.db')
+    connection = sqlite3.connect('/home/emoto13/Desktop/databases/business_catalog.db')
     query = '''SELECT *  
                   FROM users
                   WHERE id=?'''
